@@ -16,7 +16,7 @@ async function main() {
     "mongodb+srv://Karan:FUtijhcjC0yd9l9z@cluster0.iy9km.mongodb.net/course-selling-app"
   );
 
-  app.listen(3000);
+  app.listen(4000);
 }
 
 main();
