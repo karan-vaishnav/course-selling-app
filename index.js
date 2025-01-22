@@ -15,6 +15,7 @@ async function main() {
   await mongoose.connect(
     "mongodb+srv://Karan:FUtijhcjC0yd9l9z@cluster0.iy9km.mongodb.net/course-selling-app"
   );
+
   app.listen(3000);
 }
 
