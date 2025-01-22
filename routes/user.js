@@ -3,7 +3,7 @@ const { Router } = require("express");
 const z = require("zod");
 const jwt = require("jsonwebtoken");
 const { userModel } = require("../db");
-const { JWT_SECRET } = require("../auth");
+const { JWT_USER_SECRET } = "S3cret";
 const userRouter = Router();
 
 userRouter.post("/signup", async function (req, res) {
@@ -85,7 +85,7 @@ userRouter.post("/login", async function (req, res) {
     {
       id: user._id.toString(),
     },
-    JWT_SECRET
+    JWT_USER_SECRET
   );
   res.json({
     token,

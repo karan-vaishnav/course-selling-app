@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "S3cret";
 
 function auth(req, res, next) {
   const token = req.headers.authorization;
@@ -17,6 +16,5 @@ function auth(req, res, next) {
 }
 
 module.exports = {
-  auth,
-  JWT_SECRET,
+  auth
 };
