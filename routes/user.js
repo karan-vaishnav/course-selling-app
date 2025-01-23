@@ -2,8 +2,8 @@ const bcrypt = require("bcrypt");
 const { Router } = require("express");
 const z = require("zod");
 const jwt = require("jsonwebtoken");
+const JWT_USER_SECRET = require("../config");
 const { userModel } = require("../db");
-const { JWT_USER_SECRET } = "S3cret";
 const userRouter = Router();
 
 userRouter.post("/signup", async function (req, res) {

@@ -2,9 +2,11 @@ const { Router } = require("express");
 const bcrypt = require("bcrypt");
 const z = require("zod");
 const jwt = require("jsonwebtoken");
-const JWT_ADMIN_SECRET = "adminS3cret";
-const { adminModel } = require("../db");
+const { JWT_ADMIN_SECRET } = require("../config");
+console.log(JWT_ADMIN_SECRET);
+const { adminModel, coursesModel } = require("../db");
 const adminRouter = Router();
+const adminAuth = require("../middleware/admin");
 
 adminRouter.post("/signup", async function (req, res) {
   //Input Validations
@@ -92,9 +94,22 @@ adminRouter.post("/login", async function (req, res) {
   });
 });
 
-adminRouter.post("/course", function (req, res) {
+adminRouter.post("/course", adminAuth, async function (req, res) {
+  const adminId = req.userId;
+
+  const { title, description, price, imageUrl } = req.body;
+
+  const course = await coursesModel.create({
+    title,
+    description,
+    price,
+    imageUrl,
+    creatorId: adminId,
+  });
+
   res.json({
-    message: "admin create post endpoint",
+    message: "course is created",
+    courseId: course._id,
   });
 });
 

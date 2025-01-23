@@ -1,12 +1,13 @@
 const jwt = require("jsonwebtoken");
+const { JWT_ADMIN_SECRET } = require("../config");
 
-function auth(req, res, next) {
+function adminAuth(req, res, next) {
   const token = req.headers.authorization;
 
-  const response = jwt.verify(token, JWT_SECRET);
+  const response = jwt.verify(token, JWT_ADMIN_SECRET);
 
   if (response) {
-    req.userId = req.response;
+    req.userId = response.id;
     next();
   } else {
     res.status(403).json({
@@ -15,6 +16,4 @@ function auth(req, res, next) {
   }
 }
 
-module.exports = {
-  auth
-};
+module.exports = adminAuth;
