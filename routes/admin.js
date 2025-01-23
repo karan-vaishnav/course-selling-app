@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const z = require("zod");
 const jwt = require("jsonwebtoken");
 const { JWT_ADMIN_SECRET } = require("../config");
-console.log(JWT_ADMIN_SECRET);
 const { adminModel, coursesModel } = require("../db");
 const adminRouter = Router();
 const adminAuth = require("../middleware/admin");
