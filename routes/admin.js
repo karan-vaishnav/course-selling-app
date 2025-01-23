@@ -112,9 +112,33 @@ adminRouter.post("/course", adminAuth, async function (req, res) {
   });
 });
 
-adminRouter.put("/course", function (req, res) {
+adminRouter.put("/course", adminAuth, async function (req, res) {
+  const adminId = req.userId;
+
+  const { title, description, price, imageUrl, courseId } = req.body;
+
+  const course = await coursesModel.findOneAndUpdate(
+    {
+      _id: courseId,
+      creatorId: adminId,
+    },
+    {
+      title,
+      description,
+      price,
+      imageUrl,
+    }
+  );
+
+  if (!course) {
+    return res.status(404).json({
+      message: "Course not found or you don't have permission to update it!",
+    });
+  }
+
   res.json({
-    message: "admin edit post endpoint",
+    message: "course is updated",
+    courseId: course._id,
   });
 });
 
