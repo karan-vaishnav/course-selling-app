@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const JWT_USER_SECRET = require("../config");
+const { JWT_USER_SECRET } = require("../config");
 
 function userAuth(req, res, next) {
   const token = req.headers.authorization;
@@ -16,6 +16,4 @@ function userAuth(req, res, next) {
   }
 }
 
-module.exports = {
-  userAuth,
-};
+module.exports = userAuth;

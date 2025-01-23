@@ -2,8 +2,10 @@ const bcrypt = require("bcrypt");
 const { Router } = require("express");
 const z = require("zod");
 const jwt = require("jsonwebtoken");
-const JWT_USER_SECRET = require("../config");
-const { userModel } = require("../db");
+const { JWT_USER_SECRET } = require("../config");
+console.log(JWT_USER_SECRET);
+const userAuth = require("../middleware/user");
+const { userModel, purchaseModel } = require("../db");
 const userRouter = Router();
 
 userRouter.post("/signup", async function (req, res) {
@@ -92,12 +94,16 @@ userRouter.post("/login", async function (req, res) {
   });
 });
 
-userRouter.post("/purchases", function (req, res) {
+userRouter.post("/purchases", userAuth, async function (req, res) {
+  const userId = req.userId;
+
+  const purchases = await purchaseModel.find({
+    userId,
+  });
+
   res.json({
-    message: "Purchase endpoint",
+    purchases,
   });
 });
 
-module.exports = {
-  userRouter: userRouter,
-};
+module.exports = { userRouter };
