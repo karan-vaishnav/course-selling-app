@@ -142,9 +142,22 @@ adminRouter.put("/course", adminAuth, async function (req, res) {
   });
 });
 
-adminRouter.get("/courses", function (req, res) {
+adminRouter.get("/courses", adminAuth, async function (req, res) {
+  const adminId = req.userId;
+
+  const courses = await coursesModel.find({
+    creatorId: adminId,
+  });
+
+  if (!courses) {
+    return res.status(404).json({
+      message: "Courses not found or you don't have permission to access them!",
+    });
+  }
+
   res.json({
-    message: "admin get all courses endpoint",
+    message: "All courses",
+    courses,
   });
 });
 
