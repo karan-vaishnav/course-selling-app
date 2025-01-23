@@ -4,7 +4,7 @@ const z = require("zod");
 const jwt = require("jsonwebtoken");
 const { JWT_USER_SECRET } = require("../config");
 const userAuth = require("../middleware/user");
-const { userModel, purchaseModel } = require("../db");
+const { userModel, purchaseModel, coursesModel } = require("../db");
 const userRouter = Router();
 
 userRouter.post("/signup", async function (req, res) {
@@ -100,8 +100,13 @@ userRouter.post("/purchases", userAuth, async function (req, res) {
     userId,
   });
 
+  const coursesData = await coursesModel.find({
+    _id: { $in: purchases.map((x) => x.courseId) },
+  });
+
   res.json({
     purchases,
+    coursesData,
   });
 });
 
