@@ -17,7 +17,7 @@ courseRouter.post("/purchase", userAuth, async function (req, res) {
   });
 });
 
-courseRouter.get("/preview", userAuth, async function (req, res) {
+courseRouter.get("/preview", async function (req, res) {
   const courses = await coursesModel.find({});
 
   res.json({

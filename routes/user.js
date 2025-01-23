@@ -3,7 +3,6 @@ const { Router } = require("express");
 const z = require("zod");
 const jwt = require("jsonwebtoken");
 const { JWT_USER_SECRET } = require("../config");
-console.log(JWT_USER_SECRET);
 const userAuth = require("../middleware/user");
 const { userModel, purchaseModel } = require("../db");
 const userRouter = Router();
